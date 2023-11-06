@@ -1,0 +1,67 @@
+package Business;
+
+import java.sql.SQLException;
+import java.util.Vector;
+
+import Data.RepositoryProviderFactory;
+
+/**
+ * Encapsulates any business logic to be executed on the app server; 
+ * and uses the data layer for data queries/creates/updates/deletes
+ * @author IwanB
+ *
+ */
+public class MovieProvider implements IMovieProvider{
+
+	/**
+	 * Check login credentials
+	 * @param userName : the userName of user credentials
+	 * @param password : the password of user credentials
+	 */
+	@Override
+	public String checkStaffCredentials(String userName, String password) throws SQLException {
+		return RepositoryProviderFactory.getInstance().getRepositoryProvider().checkStaffCredentials(userName, password);
+	}
+
+	/**
+	 * Update the details for a given movie
+	 * @param movie : the movie for which to update details
+	 */
+	@Override
+	public void updateMovie(Movie movie) throws SQLException {
+		RepositoryProviderFactory.getInstance().getRepositoryProvider().updateMovie(movie);
+	}
+
+	/**
+	 * Find movies associated in some way with a userName
+	 * Movies which have the parameter below should be included in the result
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Vector<Movie> findMoviesByStaff(String userName) throws SQLException {
+		return RepositoryProviderFactory.getInstance().getRepositoryProvider().findMoviesByStaff(userName);
+	}
+	
+	/**
+	 * Add the details for a new movie to the database
+	 * @param movie : the new movie to add
+	 */
+	@Override
+	public void addMovie(Movie movie) throws SQLException {
+		RepositoryProviderFactory.getInstance().getRepositoryProvider().addMovie(movie);
+	}
+
+	/**
+	 * Given an expression searchString like 'word' or 'this phrase', this method should return 
+	 * any movies that contains this phrase.
+	 * @param searchString: the searchString to use for finding movies in the database
+	 * @return
+	 */
+	@Override
+	public Vector<Movie> findMoviesByCriteria(String searchString) throws SQLException {
+		return RepositoryProviderFactory.getInstance().getRepositoryProvider().findMoviesByCriteria(searchString);
+
+	}
+
+}
